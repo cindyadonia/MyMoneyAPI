@@ -5,7 +5,7 @@
     {
         if ($_REQUEST['type'] == "get")
         {
-            // Get specific user
+            // Get User Profile
             if (isset($_REQUEST['id']))
             {
                 $id = $_REQUEST["id"];
@@ -18,7 +18,7 @@
         }
         if ($_REQUEST['type'] == "post")
         {
-			// Create new user
+			// Register
 			// Body
 			// {
 			// 	"username": "value",
@@ -29,7 +29,7 @@
 			// 	"address": "value",
 			// 	"email": "value"
 			// }
-            if (!isset($_REQUEST['id']))
+            if (!isset($_REQUEST['id']) && isset($_REQUEST['auth']) && $_REQUEST['auth']=="register")
             {
                 $username = $_REQUEST["username"];
                 $password = $_REQUEST["password"];
@@ -73,9 +73,40 @@
                 
             }
         }
+        if ($_REQUEST['type'] == "post")
+        {
+			// Login
+			// Body
+			// {
+			// 	"username": "value",
+			// 	"password": "value"
+			// }
+            if (!isset($_REQUEST['id']) && isset($_REQUEST['auth']) && $_REQUEST['auth']=="login")
+            {
+                $username = $_REQUEST["username"];
+                $password = $_REQUEST["password"];
+                
+                $select = "SELECT username, password from users where username='".$username."' and password='".$password."'";
+                $exec = $connect->query($select);
+                if ($exec->num_rows > 0)
+                {
+                    $data = [
+                        'success' => true,
+                        'message' => "User successfully login!"
+                    ];
+                } else {
+                    $data = [
+                        'success' => false,
+                        'message' => "Failed to login!"
+                    ];
+                }
+                header('Content-Type: application/json');
+                echo json_encode($data);
+            }
+        }
         if ($_REQUEST['type'] == "put")
         {
-            // Update specific user
+            // Update User Profile
             // Body
             // {
 			// 	"full_name": "value",
