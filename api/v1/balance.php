@@ -63,11 +63,11 @@
         if ($_REQUEST['method'] == "delete")
         {
             // Delete specific balances
-            if (isset($_REQUEST['id']) && isset($_REQUEST['user_id']))
+            if (isset($_REQUEST['id']))
             {
 				$id = $_REQUEST["id"];
 				$user_id = $_REQUEST["user_id"];
-				$sql = "UPDATE balances set deleted=TRUE, deleted_at=NOW() where user_id='".$user_id."' and id='".$id."'";
+				$sql = "UPDATE balances set deleted=TRUE, deleted_at=NOW() where id='".$id."'";
                 $query = $connect->query($sql);
                 if ($query === true)
                 {
