@@ -1,9 +1,9 @@
 <?php
     include '../../config.php';
     
-    if (isset($_REQUEST) && isset($_REQUEST['type']))
+    if (isset($_REQUEST) && isset($_REQUEST['method']))
     {
-        if ($_REQUEST['type'] == "get")
+        if ($_REQUEST['method'] == "get")
         {
             // Get User Profile
             if (isset($_REQUEST['id']))
@@ -16,7 +16,7 @@
                 echo json_encode($data);
             }
         }
-        if ($_REQUEST['type'] == "post")
+        if ($_REQUEST['method'] == "post")
         {
 			// Register
 			// Body
@@ -73,7 +73,7 @@
                 
             }
         }
-        if ($_REQUEST['type'] == "post")
+        if ($_REQUEST['method'] == "post")
         {
 			// Login
 			// Body
@@ -104,7 +104,7 @@
                 echo json_encode($data);
             }
         }
-        if ($_REQUEST['type'] == "put")
+        if ($_REQUEST['method'] == "put")
         {
             // Update User Profile
             // Body

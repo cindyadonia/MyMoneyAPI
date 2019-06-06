@@ -1,9 +1,9 @@
 <?php
     include '../../config.php';
     
-    if (isset($_REQUEST) && isset($_REQUEST['type']))
+    if (isset($_REQUEST) && isset($_REQUEST['method']))
     {
-        if ($_REQUEST['type'] == "get")
+        if ($_REQUEST['method'] == "get")
         {
             // Get all cash or non-cash balance from specific user
             if (isset($_REQUEST['cash']) && isset($_REQUEST['user_id']))
@@ -21,7 +21,7 @@
                 echo json_encode($arr);
             }
         }
-        if ($_REQUEST['type'] == "post")
+        if ($_REQUEST['method'] == "post")
         {
             // Create new balance
             // Body
@@ -60,7 +60,7 @@
                 echo json_encode($data);
             }
         }
-        if ($_REQUEST['type'] == "delete")
+        if ($_REQUEST['method'] == "delete")
         {
             // Delete specific balances
             if (isset($_REQUEST['id']) && isset($_REQUEST['user_id']))
