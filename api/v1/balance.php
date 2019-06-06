@@ -27,8 +27,7 @@
             // Body
             // {
 			// 	"cash": "boolean";
-			// 	"balance_name": "value";
-			// 	"bank_name": "value";
+			// 	"name": "value";
 			// 	"bank_account_no": "value";
 			// 	"amount": "value";
 			// 	"user_id": "value";
@@ -36,13 +35,12 @@
             if (!isset($_REQUEST['id']))
             {
 				$cash = $_REQUEST["cash"];
-                $balance_name = $_REQUEST["balance_name"];
-                $bank_name = $_REQUEST["bank_name"];
+                $name = $_REQUEST["name"];
                 $bank_account_no = $_REQUEST["bank_account_no"];
                 $amount = $_REQUEST["amount"];
                 $user_id = $_REQUEST["user_id"];
 
-				$sql = "INSERT INTO balances(cash,balance_name,bank_name,bank_account_no,amount,user_id) VALUES('".$cash."','".$balance_name."','".$bank_name."','".$bank_account_no."','".$amount."','".$user_id."')";
+				$sql = "INSERT INTO balances(cash,name,bank_account_no,amount,user_id) VALUES('".$cash."','".$name."','".$bank_account_no."','".$amount."','".$user_id."')";
                 $query = $connect->query($sql);
                 if ($query === true)
                 {

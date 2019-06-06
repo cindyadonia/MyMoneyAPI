@@ -10,7 +10,10 @@
             {
                 $user_id = $_REQUEST["user_id"];
 
-                $sql = "SELECT * FROM incomes WHERE user_id='".$user_id."'";
+                $sql = "SELECT incomes.id, incomes.date, incomes.description, incomes.amount, income_types.name as income_type_name, balances.name as balance_name FROM incomes
+                INNER JOIN income_types on income_types.id = incomes.income_type_id
+                INNER JOIN balances on balances.id = incomes.balance_id
+                WHERE incomes.user_id='".$user_id."'";
                 $query = $connect->query($sql);
                 $arr = [];
                 while ($data = $query->fetch_assoc())
@@ -41,7 +44,10 @@
 				$id = $_REQUEST["id"];
                 $user_id = $_REQUEST["user_id"];
 
-                $sql = "SELECT * FROM incomes WHERE id='".$id."'";
+                $sql = "SELECT incomes.id as income_id, incomes.date, incomes.description, incomes.amount, income_types.name as income_type_name, balances.name as balance_name,  income_types.id as income_types_id, balances.id as balance_id FROM incomes
+                INNER JOIN income_types on income_types.id = incomes.income_type_id
+                INNER JOIN balances on balances.id = incomes.balance_id
+                WHERE incomes.id='".$id."'";
                 $query = $connect->query($sql);
                 $arr = [];
                 while ($data = $query->fetch_assoc())
@@ -217,7 +223,7 @@
         }
         if ($_REQUEST['method'] == "delete")
         {
-            // Delete specific user
+            // Delete Income by id
             if (isset($_REQUEST['id']))
             {
                 $id = $_REQUEST["id"];

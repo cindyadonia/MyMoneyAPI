@@ -10,7 +10,10 @@
             {
                 $user_id = $_REQUEST["user_id"];
 
-                $sql = "SELECT * FROM outcomes WHERE user_id='".$user_id."'";
+                $sql = "SELECT outcomes.id, outcomes.date, outcomes.description, outcomes.amount, outcome_types.name as outcome_type_name, balances.name as balance_name FROM outcomes 
+                INNER JOIN outcome_types on outcome_types.id = outcomes.outcome_type_id
+                INNER JOIN balances on balances.id = outcomes.balance_id
+                WHERE outcomes.user_id='".$user_id."'";
                 $query = $connect->query($sql);
                 $arr = [];
                 while ($data = $query->fetch_assoc())
@@ -39,9 +42,11 @@
             if (isset($_REQUEST['id']) && !isset($_REQUEST['type']))
             {
 				$id = $_REQUEST["id"];
-                $user_id = $_REQUEST["user_id"];
 
-                $sql = "SELECT * FROM outcomes WHERE id='".$id."'";
+                $sql = "SELECT outcomes.id as outcome_id, outcomes.date, outcomes.description, outcomes.amount, outcome_types.name as outcome_type_name, balances.name as balance_name,  outcome_types.id as outcome_types_id, balances.id as balance_id FROM outcomes
+                INNER JOIN outcome_types on outcome_types.id = outcomes.outcome_type_id
+                INNER JOIN balances on balances.id = outcomes.balance_id
+                WHERE outcomes.id='".$id."'";
                 $query = $connect->query($sql);
                 $arr = [];
                 while ($data = $query->fetch_assoc())
@@ -55,7 +60,6 @@
             if (isset($_REQUEST['id']) && isset($_REQUEST['type']) && $_REQUEST['type'] == 'outcome')
             {
 				$id = $_REQUEST["id"];
-				$user_id = $_REQUEST["user_id"];
 
 				$sql = "SELECT *  FROM outcome_types WHERE deleted=FALSE AND id='".$id."'";
                 $query = $connect->query($sql);
