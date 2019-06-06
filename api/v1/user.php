@@ -82,7 +82,8 @@
 			// 	"birth_date": "value",
 			// 	"birth_place": "value",
 			// 	"address": "value",
-			// 	"email": "value"
+            // 	"email": "value",
+            //  "password: "value"
             // }
             if (isset($_REQUEST['id']))
             {
@@ -92,9 +93,16 @@
                 $birth_place = $_REQUEST["birth_place"];
                 $address = $_REQUEST["address"];
                 $email = $_REQUEST["email"];
+                $password = $_REQUEST["password"];
 				
-                $sql = "UPDATE users SET full_name='".$full_name."', birth_date='".$birth_date."', birth_place='".$birth_place."', address='".$address."', email='".$email."' WHERE id='".$id."'";
-                $query = $connect->query($sql);
+				$sql = "UPDATE users SET full_name='".$full_name."', birth_date='".$birth_date."', birth_place='".$birth_place."', address='".$address."', email='".$email."'";
+				if(isset($password) && $password != "")
+				{
+					$sql .= ",password='".$password."'";
+				}
+				$sql .= " WHERE id='".$id."'";
+
+				$query = $connect->query($sql);
                 if ($query === true)
                 {
                     $data = [
