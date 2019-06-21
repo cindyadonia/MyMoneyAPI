@@ -86,13 +86,15 @@
                 $username = $_REQUEST["username"];
                 $password = $_REQUEST["password"];
                 
-                $select = "SELECT username, password from users where username='".$username."' and password='".$password."'";
+                $select = "SELECT id, username from users where username='".$username."' and password='".$password."' LIMIT 1";
                 $exec = $connect->query($select);
+                $data = $exec->fetch_assoc();
                 if ($exec->num_rows > 0)
                 {
                     $data = [
                         'success' => true,
-                        'message' => "User successfully login!"
+                        'message' => "User successfully login!",
+                        'data' => $data["id"]
                     ];
                 } else {
                     $data = [
