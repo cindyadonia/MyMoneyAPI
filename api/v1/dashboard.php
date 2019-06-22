@@ -11,7 +11,7 @@
                 $user_id = $_REQUEST["user_id"];
 
                 $monthly_income = "SELECT SUM(amount) as monthly_income from incomes where user_id = '".$user_id."' and MONTH(incomes.date) = ". date('m') ." and YEAR(incomes.date) = ". date('Y'). "";
-                $monhtly_outcome = "SELECT SUM(amount) as monhtly_outcome from outcomes where user_id = '".$user_id."' and MONTH(outcomes.date) = ". date('m') ." and YEAR(outcomes.date) = ". date('Y'). "";
+                $monhtly_outcome = "SELECT SUM(amount) as monthly_outcome from outcomes where user_id = '".$user_id."' and MONTH(outcomes.date) = ". date('m') ." and YEAR(outcomes.date) = ". date('Y'). "";
                 $today_income = "SELECT SUM(amount) as today_income from incomes where user_id = '".$user_id."' and MONTH(incomes.date) = ". date('m') ." and YEAR(incomes.date) = ". date('Y'). " AND DAY(incomes.date) =".date('d')."";
                 $today_outcome = "SELECT SUM(amount) as today_outcome from outcomes where user_id = '".$user_id."' and MONTH(outcomes.date) = ". date('m') ." and YEAR(outcomes.date) = ". date('Y'). " AND DAY(outcomes.date) =".date('d')."";
 
