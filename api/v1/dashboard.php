@@ -20,7 +20,7 @@
                 $query3 = $connect->query($today_income);
                 $query4 = $connect->query($today_outcome);
                 $data1 = $query1->fetch_assoc()["monthly_income"];
-                $data2 = $query2->fetch_assoc()["monhtly_outcome"];
+                $data2 = $query2->fetch_assoc()["monthly_outcome"];
                 $data3 = $query3->fetch_assoc()["today_income"];
                 $data4 = $query4->fetch_assoc()["today_outcome"];
                 
