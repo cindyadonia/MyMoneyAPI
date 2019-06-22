@@ -91,12 +91,18 @@
                 $data = $exec->fetch_assoc();
                 if ($exec->num_rows > 0)
                 {
+                    $name = $data['full_name'];
+                    if(!isset($name) || $name == "")
+                    {
+                        $name = $data['username'];
+                    }
+
                     $data = [
                         'success' => true,
                         'message' => "User successfully login!",
                         'data' => [
                             'id' => $data["id"],
-                            'full_name' => $data["full_name"],
+                            'username' => $name,
                             'email' => $data["email"],
                         ]
                     ];
