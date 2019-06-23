@@ -40,7 +40,19 @@
                 $amount = $_REQUEST["amount"];
                 $user_id = $_REQUEST["user_id"];
 
-				$sql = "INSERT INTO balances(cash,name,bank_account_no,amount,user_id) VALUES('".$cash."','".$name."','".$bank_account_no."','".$amount."','".$user_id."')";
+                $sql = "INSERT INTO balances(cash,name,bank_account_no,amount,user_id) VALUES('".$cash."','".$name."'";
+                
+                if($cash == FALSE)
+                {
+                    $sql .=",'".$bank_account_no."'";
+                }
+                else
+                {
+                    $sql .=",'NULL'";
+                }
+                $sql .= ",'".$amount."','".$user_id."')";
+
+                var_dump($sql);die;
                 $query = $connect->query($sql);
                 if ($query === true)
                 {
