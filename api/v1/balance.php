@@ -52,7 +52,6 @@
                 }
                 $sql .= ",'".$amount."','".$user_id."')";
 
-                var_dump($sql);die;
                 $query = $connect->query($sql);
                 if ($query === true)
                 {
