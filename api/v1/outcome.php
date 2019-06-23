@@ -85,7 +85,7 @@
 			// 	"user_id": "value"
 			// }
 
-            if (!isset($_REQUEST['id']))
+            if (!isset($_REQUEST['id']) && !isset($_REQUEST['type']))
             {
                 $date = $_REQUEST["date"];
                 $description = $_REQUEST["description"];
@@ -118,6 +118,35 @@
 						'message' => "Failed to create a new outcome!"
 					];
 				}
+				header('Content-Type: application/json');
+				echo json_encode($data);
+            }
+
+            // Create Outcome Type
+			// Body
+			// {
+			// 	"name": "value",
+			// 	"user_id": "value"
+			// }
+            if (!isset($_REQUEST['id']) && isset($_REQUEST['type']) && $_REQUEST['type']=="outcome")
+            {
+                $name = $_REQUEST["name"];
+                $user_id = $_REQUEST["user_id"];
+                
+                $sql = "INSERT INTO outcome_types(name,user_id) VALUES('".$name."','".$user_id."')";
+				$query = $connect->query($sql);
+				if ($query === true){
+                    $data = [
+                        'success' => true,
+                        'message' => "Successfully created new outcome type"
+                    ];	
+                }
+                else{
+                    $data = [
+                        'success' => false,
+                        'message' => "Failed to create a new outcome type!"
+                    ];
+                }
 				header('Content-Type: application/json');
 				echo json_encode($data);
             }
@@ -196,7 +225,14 @@
                 }
                 header('Content-Type: application/json');
                 echo json_encode($data);
-			}
+            }
+            
+            // Update Outcome Type
+			// Body
+			// {
+			// 	"name": "value",
+			// 	"user_id": "value"
+			// }
 			if(isset($_REQUEST['id']) && isset($_REQUEST['type']) && $_REQUEST['type'] == 'outcome')
 			{
 				$id = $_REQUEST["id"];
@@ -222,8 +258,50 @@
         }
         if ($_REQUEST['method'] == "delete")
         {
-            // Delete Outcome by id
-            if (isset($_REQUEST['id']))
+            //Delete Outcome by id
+            if (isset($_REQUEST['id']) && !isset($_REQUEST['type']))
+            {
+                $id = $_REQUEST["id"];
+
+                $select = "SELECT * FROM outcomes where id='".$id."'";
+				$exec = $connect->query($select);
+				$data = mysqli_fetch_array($exec);
+				$current_amount=$data['amount'];
+				$current_balance_id=$data['balance_id'];
+
+                $sql = "DELETE FROM outcomes where id='".$id."'";
+                $query = $connect->query($sql);
+                if($query === true)
+                {
+                    $update = "UPDATE balances set amount=amount+'".$current_amount."' where id='".$current_balance_id."'";
+                    $exec = $connect->query($update);
+                    if($exec === true)
+                    {
+                        $data = [
+                            'success' => true,
+                            'message' => "Successfulyly deleted the outcome!"
+                        ];
+                    }
+                    else
+                    {
+                        $data = [
+                            'success' => false,
+                            'message' => "Failed to delete the outcome!"
+                        ];
+                    }
+                }
+                else {
+                    $data = [
+                        'success' => false,
+                        'message' => "Failed to delete the outcome!"
+                    ];
+                }
+                header('Content-Type: application/json');
+                echo json_encode($data);
+            }
+            
+            // Delete Outcome Types by id
+            if (isset($_REQUEST['id']) && isset($_REQUEST['type']) && $_REQUEST['type'] == 'outcome')
             {
                 $id = $_REQUEST["id"];
                 $sql = "UPDATE outcome_types set deleted=TRUE, deleted_at = NOW() where id='".$id."'";
