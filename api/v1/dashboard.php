@@ -26,7 +26,7 @@
                 
                 $data = [  
                     "monthly_income" => isset($data1) ? $data1 : 0,
-                    "monhtly_outcome" => isset($data2) ? $data2 : 0,
+                    "monthly_outcome" => isset($data2) ? $data2 : 0,
                     "today_income" => isset($data3) ? $data3 : 0,
                     "today_outcome" => isset($data4) ? $data4 : 0
                 ];
